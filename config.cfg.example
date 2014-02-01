@@ -1,0 +1,13 @@
+[network]
+server=
+nick=
+nickserv=
+channel=
+[misc]
+#Note: admins should be a list of admins, separated by a '/'.-->
+admins=
+cmdchar=
+#Currently unused
+[time]
+round=8
+balence=5
