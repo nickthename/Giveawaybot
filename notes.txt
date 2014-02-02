@@ -1,0 +1,11 @@
+[-]Add unmove
+[-]Add some comformation on move and join
+[-]Fix !players
+[ ]Something for unready players
+[ ]Add a !help
+[-]Add a command to see your goal
+[ ]Add dividing lines in output
+[ ]Improve colors on victory screen
+[ ]Fix the find winners to allow for multiple winners
+[ ]Reconsider starting number of tokens
+[ ]Replace references to "colors" with "tokens"
