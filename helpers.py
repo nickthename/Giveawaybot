@@ -53,6 +53,6 @@ def find_win(bot):
     for x in range(0,len(bot.player_list)):
         if all(map(lambda y: y in bot.players[bot.player_list[x]][1],bot.goals[x])):
             bot.say_main("{0} Has won! Game reseting, congratz.".format(
-                        color_player(bot.player_list[x])))
+                        color_player(bot,bot.player_list[x])))
             return True
     return False

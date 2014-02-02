@@ -1,9 +1,10 @@
-[-]Add unmove
-[-]Add some comformation on move and join
-[-]Fix !players
+[x]Add unmove
+[ ]Add unmove to documentation
+[x]Add some comformation on move and join
+[x]Fix !players
 [ ]Something for unready players
 [ ]Add a !help
-[-]Add a command to see your goal
+[x]Add a command to see your goal
 [ ]Add dividing lines in output
 [ ]Improve colors on victory screen
 [ ]Fix the find winners to allow for multiple winners

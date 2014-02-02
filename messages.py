@@ -1,4 +1,4 @@
-from helpers import say_hands,check_moves,tell_move
+from helpers import say_hands,check_moves,tell_move,color_hand
 import sys
 import modes
 
@@ -66,6 +66,9 @@ def handler(c, e, bot):
 
         if cmd == 'join':
             bot.players[e.source.nick]=0
+            bot.say_main(
+                "Confirmed your join. Wait for an admin to start the game.",
+                e.source.nick)
             print(bot.players)
 
         if cmd == 'leave' and e.source.nick in bot.players:
@@ -74,9 +77,9 @@ def handler(c, e, bot):
 
         if cmd == 'players':
             if e.type == "privmsg":
-                bot.say_main(bot.player_list,e.source.nick)
+                bot.say_main(list(bot.players.keys()),e.source.nick)
             else:
-                bot.say_main(bot.player_list)
+                bot.say_main(list(bot.players.keys()))
 
     elif bot.state == 2:
         if cmd == "mymove":
@@ -84,15 +87,22 @@ def handler(c, e, bot):
             tell_move(bot,e.source.nick)
         if cmd == "hands":
             say_hands(bot,e.source.nick)
+
+        if cmd == "unmove":
+            bot.players[e.source.nick][2]=()
+
+        if cmd == "goal":
+            bot.mserv.privmsg(e.source.nick,'Your goal is to obtain "{0}"'.format(
+                color_hand(bot.goals[bot.players[e.source.nick][0]],bot.irc_colors)))
         
-        if cmd == "move":
+        if cmd == "move" or cmd == "give":
             if e.type != "privmsg":
                 bot.say_main("Moves must be in private message")
             else:
                 if args[0] not in bot.colors:
                     bot.say_main("That isn't a color",e.source.nick)
                 elif args[0] not in bot.players[e.source.nick][1]:
-                    bot.say_main("You don't have that color",e.source.nick)
+                    bot.say_main("You don't have a token of that color",e.source.nick)
                 elif args[1] not in bot.players and args[1] not in bot.colors:
                     bot.say_main("You must target a player or player's color",
                                 e.source.nick)
@@ -101,6 +111,7 @@ def handler(c, e, bot):
                         bot.players[e.source.nick][2]=(args[0],bot.players[args[1]][0])
                     else:
                         bot.players[e.source.nick][2]=(args[0],bot.colors.index(args[1]))
+                    bot.say_main("Move recieved.",e.source.nick)
                     if check_moves(bot)==True:
                         modes.do_moves(bot)
     elif bot.state == 3:
@@ -120,11 +131,14 @@ def handler(c, e, bot):
                         break
                 if cont==True: modes.do_imbal(bot)
             else:
-                bot.say_main("You still have too many colors",e.source.nick)
+                bot.say_main("You still have too many tokens",e.source.nick)
 
-        if cmd == "move":
+        if cmd == "unmove":
+            bot.players[e.source.nick][2]=[]
+
+        if cmd == "move" or cmd == "give":
             if e.source.nick not in bot.imbal[0]: 
-                bot.say_main("Only players with more than 6 colors are moving",
+                bot.say_main("Only players with more than 6 tokens are moving",
                             e.source.nick)
                 return
 
@@ -136,7 +150,7 @@ def handler(c, e, bot):
             if args[0] not in bot.colors:
                 bot.say_main("That isn't a color",e.source.nick)
             elif args[0] not in bot.players[e.source.nick][1]:
-                bot.say_main("You don't have that color",e.source.nick)
+                bot.say_main("You don't have a token of color",e.source.nick)
             elif args[1] not in bot.players and args[1] not in bot.colors:
                 bot.say_main("You must target a player or player's color",
                             e.source.nick)
@@ -176,3 +190,32 @@ def handler(c, e, bot):
                 bot.players[e.source.nick][3] = \
                     newhand[:newhand.index(move[0])]+newhand[newhand.index(move[0])+1:]
     #            print("Finished applying move",bot.players)
+                bot.say_main("Move recieved.",e.source.nick)
+    if cmd == "help":
+        bot.say_main(
+        "Welcome to Giveawaybot! I am a bot that administrates the games Giveaway.",
+        e.source.nick)
+        bot.say_main(
+        "Full documentation can be found at http://nickthename.github.io/Giveawaybot/use.html",
+        e.source.nick)
+        bot.say_main(
+        "Basic commands:",
+        e.source.nick)
+        bot.say_main(
+        "!join/!leave - Join or leave a game about to start",
+        e.source.nick)
+        bot.say_main(
+        "!move <first letter of color> <player> - Makes a move",
+        e.source.nick)
+        bot.say_main(
+        "!mymove - Tells you your current move or moves",
+        e.source.nick)
+        bot.say_main(
+        "!ready - Only during rebalancing, readies you.",
+        e.source.nick)
+        bot.say_main(
+        "Other commands include !players, !goal, !hands, and !unmove.",
+        e.source.nick)
+        bot.say_main(
+        "Read the documentation for a full list.",
+        e.source.nick)
