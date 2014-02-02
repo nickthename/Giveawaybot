@@ -127,6 +127,11 @@ def handler(c, e, bot):
                 bot.say_main("Only players with more than 6 colors are moving",
                             e.source.nick)
                 return
+
+            if e.type != "privmsg":
+                bot.say_main("Moves must be in private message")
+                return
+
             #Standard checks
             if args[0] not in bot.colors:
                 bot.say_main("That isn't a color",e.source.nick)
