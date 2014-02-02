@@ -27,7 +27,7 @@ def start(bot):
     #Assign players to a color
     for x in range(0,len(bot.colors)):
         print(x)
-        bot.players[names[x]]=[x,6 * bot.colors[x],()]
+        bot.players[names[x]]=[x,6 * bot.colors[x],[]]
     print(bot.players)
     #Tell players their goals
     for player in names:
@@ -68,7 +68,7 @@ def imbalence(bot,imbal):
     bot.imbal=imbal
     bot.say_main("There is an imbalence in player hands.")
     bot.say_main("During this round, only players with more than six colors")
-    bot.say_main("should submit moves. Those players have recieved messages")
+    bot.say_main("should submit moves. Those players have recieved messages.")
     for player in imbal[0]:
         bot.players[player][2]=[]
         bot.players[player].append(bot.players[player][1])
