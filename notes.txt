@@ -3,7 +3,7 @@
 [x]Add some comformation on move and join
 [x]Fix !players
 [ ]Something for unready players
-[ ]Add a !help
+[x]Add a !help
 [x]Add a command to see your goal
 [ ]Add dividing lines in output
 [ ]Improve colors on victory screen

@@ -132,6 +132,9 @@ def handler(c, e, bot):
                 if cont==True: modes.do_imbal(bot)
             else:
                 bot.say_main("You still have too many tokens",e.source.nick)
+        if cmd == "unready":
+            bot.players[e.source.nick][4]=False
+            bot.say_main("You are no longer ready",e.source.nick)
 
         if cmd == "unmove":
             bot.players[e.source.nick][2]=[]
