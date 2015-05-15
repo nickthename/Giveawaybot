@@ -67,7 +67,7 @@ def handler(c, e, bot):
         if cmd == 'join':
             bot.players[e.source.nick]=0
             bot.say_main(
-                "Confirmed your join. Wait for an admin to start the game.",
+                "Join recieved. Wait for an admin to start the game.",
                 e.source.nick)
             print(bot.players)
 
@@ -153,7 +153,7 @@ def handler(c, e, bot):
             if args[0] not in bot.colors:
                 bot.say_main("That isn't a color",e.source.nick)
             elif args[0] not in bot.players[e.source.nick][1]:
-                bot.say_main("You don't have a token of color",e.source.nick)
+                bot.say_main("You don't have a token of that color",e.source.nick)
             elif args[1] not in bot.players and args[1] not in bot.colors:
                 bot.say_main("You must target a player or player's color",
                             e.source.nick)
@@ -196,7 +196,7 @@ def handler(c, e, bot):
                 bot.say_main("Move recieved.",e.source.nick)
     if cmd == "help":
         bot.say_main(
-        "Welcome to Giveawaybot! I am a bot that administrates the games Giveaway.",
+        "Welcome to Giveawaybot! I am a bot that administrates the game Giveaway.",
         e.source.nick)
         bot.say_main(
         "Full documentation can be found at http://nickthename.github.io/Giveawaybot/use.html",
