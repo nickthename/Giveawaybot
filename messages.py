@@ -76,10 +76,11 @@ def handler(c, e, bot):
             print(bot.players)
 
         if cmd == 'players':
+            player_string = ', '.join(list(bot.players.keys()))
             if e.type == "privmsg":
-                bot.say_main(list(bot.players.keys()),e.source.nick)
+                bot.say_main('Players joined: ' + player_string,e.source.nick)
             else:
-                bot.say_main(list(bot.players.keys()))
+                bot.say_main('Players joined: ' + player_string)
 
     elif bot.state == 2:
         if cmd == "mymove":
