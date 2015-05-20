@@ -100,21 +100,36 @@ def handler(c, e, bot):
             if e.type != "privmsg":
                 bot.say_main("Moves must be in private message")
             else:
+                #args= [color, <player|player color>]
+                #Verify color
                 if args[0] not in bot.colors:
                     bot.say_main("That isn't a color",e.source.nick)
-                elif args[0] not in bot.players[e.source.nick][1]:
+                    return
+                if args[0] not in bot.players[e.source.nick][1]:
                     bot.say_main("You don't have a token of that color",e.source.nick)
-                elif args[1] not in bot.players and args[1] not in bot.colors:
-                    bot.say_main("You must target a player or player's color",
+                    return
+                color = args[0]
+                #Verify target
+                if args[1] not in bot.players and args[1] not in bot.colors:
+                    bot.say_main("You must target a player by name or color",
                                 e.source.nick)
-                else:
-                    if args[1] in bot.players:
-                        bot.players[e.source.nick][2]=(args[0],bot.players[args[1]][0])
-                    else:
-                        bot.players[e.source.nick][2]=(args[0],bot.colors.index(args[1]))
-                    bot.say_main("Move recieved.",e.source.nick)
-                    if check_moves(bot)==True:
-                        modes.do_moves(bot)
+                    return
+                #Set target
+                if args[1] in bot.players: target_id = bot.get_id[args[1]]
+                else: target_id = bot.colors.index(args[1])
+                
+                if target_id == bot.get_id(e.source.nick): 
+                    bot.say_main("You can't give to yourself!",e.source.nick)
+                    return
+
+                if color in bot.players[bot.player_list[target_id]][1]:
+                    bot.say_main("That player already has a token of that color",
+                            e.source.nick)
+                    return
+                bot.players[e.source.nick][2]=(color,target_id)
+                bot.say_main("Move recieved.",e.source.nick)
+                if check_moves(bot)==True:
+                    modes.do_moves(bot)
     elif bot.state == 3:
         if cmd == "mymove":
             print(e.source.nick,"wants his moves")
@@ -151,16 +166,24 @@ def handler(c, e, bot):
                 return
 
             #Standard checks
+            if args[1] in bot.players:
+                target = bot.player_list.index(args[1])
+            elif args[1] in bot.colors:
+                target = bot.colors.index(args[1])
+            else:
+                bot.say_main("You must target a player by name or color",
+                            e.source.nick)
+                return
             if args[0] not in bot.colors:
                 bot.say_main("That isn't a color",e.source.nick)
             elif args[0] not in bot.players[e.source.nick][1]:
                 bot.say_main("You don't have a token of that color",e.source.nick)
-            elif args[1] not in bot.players and args[1] not in bot.colors:
-                bot.say_main("You must target a player or player's color",
-                            e.source.nick)
             elif args[1] not in bot.imbal[1]:
                 bot.say_main("You may only give to players without a full hand",
                         e.source.nick)
+            elif args[0] in bot.players[bot.player_list[target]][1]:
+                bot.say_main("You may not give to a play that already has a \
+                        token of that color", e.source.nick)
             else:
                 move = args
                 if move[1] in bot.players:
