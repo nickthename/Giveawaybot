@@ -10,7 +10,7 @@ class Giveawaybot(SingleServerIRCBot):
     goals = []
     state = 1
     imbal = [[],[]] #(too many),(too few)
-    players = {}  #player: [<id>,<hand>,<move>]
+    players = {}  #playername: [<id>,<hand>,<move>] move=(color, id)
     player_list = []
     mchan = "" #Main channel for game
     mserv = "" #Main server  for game
@@ -32,6 +32,9 @@ class Giveawaybot(SingleServerIRCBot):
                               port, 
                               config['network']['nickserv'])
         SingleServerIRCBot.__init__(self, [miscinfo], self.nick, self.nick)
+
+    def get_id(self, player):
+        return self.players[player][0]
     
     def say_main(self, msg, target=""):
         print(msg)
