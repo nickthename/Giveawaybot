@@ -115,7 +115,7 @@ def handler(c, e, bot):
                                 e.source.nick)
                     return
                 #Set target
-                if args[1] in bot.players: target_id = bot.get_id[args[1]]
+                if args[1] in bot.players: target_id = bot.get_id(args[1])
                 else: target_id = bot.colors.index(args[1])
                 
                 if target_id == bot.get_id(e.source.nick): 
