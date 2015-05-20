@@ -10,3 +10,5 @@
 [ ]Fix the find winners to allow for multiple winners
 [ ]Reconsider starting number of tokens
 [ ]Replace references to "colors" with "tokens"
+[ ]Stop players from joining if their name is a color
+[ ]Add new rule (no giving to someone that already has a color)
