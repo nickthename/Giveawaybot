@@ -20,7 +20,7 @@ the player's starting color.
 For example, one player is given 4 red tokens at the start of the game. He is secretly assigned the goal of green, orange, violet, which means to win he needs to obtain one token of each of those colors. This goal is kept secret.
 
 ###Gameplay
-Steps in a turn:
+Each round:
 
 1. Players discuss, privately or publicly.
 2. Players write down (or, if digitally, tell the bot) their move. A move consists of giving one token to one other player.
