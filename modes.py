@@ -27,7 +27,7 @@ def start(bot):
     #Assign players to a color
     for x in range(0,len(bot.colors)):
         print(x)
-        bot.players[names[x]]=[x,6 * bot.colors[x],[]]
+        bot.players[names[x]]=[x,4 * bot.colors[x],[]]
     print(bot.players)
     #Tell players their goals
     for player in names:
@@ -54,9 +54,9 @@ def do_moves(bot):
         imb=[[],[]]#(more),(less)
         for player in bot.player_list:
             bot.players[player][2]=()
-            if len(bot.players[player][1])>6: 
+            if len(bot.players[player][1])>4: 
                 imb[0].append(player)
-            elif len(bot.players[player][1])<6: 
+            elif len(bot.players[player][1])<4: 
                 imb[1].append(player)
         if imb[0]: 
             imbalence(bot,imb)
@@ -67,16 +67,16 @@ def imbalence(bot,imbal):
 
     bot.imbal=imbal
     bot.say_main("There is an imbalence in player hands.")
-    bot.say_main("During this round, only players with more than six colors")
+    bot.say_main("During this round, only players with more than four colors")
     bot.say_main("should submit moves. Those players have recieved messages.")
     for player in imbal[0]:
         bot.players[player][2]=[]
         bot.players[player].append(bot.players[player][1])
         bot.players[player].append(False)
-        excess = len(bot.players[player][1])-6
+        excess = len(bot.players[player][1])-4
         bot.say_main("Your hand is {0}. You have {1} more colors than normal.".format(
             color_hand(bot.players[player][1],bot.irc_colors),excess),player)
-        bot.say_main("The following players have fewer than 6 colors:{0}".format(
+        bot.say_main("The following players have fewer than 4 colors:{0}".format(
             str(imbal[1])),player) 
         bot.say_main("You must make {0} simultanious moves, giving to {0} different people".format(excess),player)
     bot.state=3
@@ -96,9 +96,9 @@ def do_imbal(bot):
     imb=[[],[]]#(more),(less)
     for player in bot.player_list:
         bot.players[player][2]=()
-        if len(bot.players[player][1])>6: 
+        if len(bot.players[player][1])>4: 
             imb[0].append(player)
-        elif len(bot.players[player][1])<6: 
+        elif len(bot.players[player][1])<4: 
             imb[1].append(player)
     if find_win(bot):
         hardstop(bot)

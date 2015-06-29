@@ -45,6 +45,14 @@ def handler(c, e, bot):
             bot.state = 1
             c.privmsg(e.target, "Enabling.")
 
+        elif cmd =='nonmovers' and bot.state == 2:
+            nonmovers = []
+            for player in bot.player_list:
+                if not bot.players[player][2]:
+                    nonmovers.append(player)
+            bot.say_main(", ".join(nonmovers))
+
+
         if bot.state == 1:
             if cmd == 'start':
                 if len(bot.players.keys())<6:
@@ -123,7 +131,8 @@ def handler(c, e, bot):
                     return
 
                 if color in bot.players[bot.player_list[target_id]][1]:
-                    bot.say_main("That player already has a token of that color",
+                    bot.say_main("That player already has a token of that \
+                            color.",
                             e.source.nick)
                     return
                 bot.players[e.source.nick][2]=(color,target_id)
@@ -138,7 +147,7 @@ def handler(c, e, bot):
             say_hands(bot,e.source.nick)
 
         if cmd == "ready":
-            if len(bot.players[e.source.nick][3])==6:
+            if len(bot.players[e.source.nick][3])==4:
                 bot.players[e.source.nick][4]=True
                 cont=True
                 for player in bot.imbal[0]:
@@ -157,7 +166,7 @@ def handler(c, e, bot):
 
         if cmd == "move" or cmd == "give":
             if e.source.nick not in bot.imbal[0]: 
-                bot.say_main("Only players with more than 6 tokens are moving",
+                bot.say_main("Only players with more than 4 tokens are moving",
                             e.source.nick)
                 return
 
@@ -206,7 +215,7 @@ def handler(c, e, bot):
                         bot.players[e.source.nick][3]+=bot.players[e.source.nick][2][1][0]
                         bot.players[e.source.nick][2].pop(x)
                 #If we've already done as many moves as we can
-                if len(bot.players[e.source.nick][3])==6:
+                if len(bot.players[e.source.nick][3])==4:
                     bot.players[e.source.nick][3]+=bot.players[e.source.nick][2][0][0]
                     bot.players[e.source.nick][2].pop(0)
                 #We can finally add the move
