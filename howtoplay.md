@@ -22,19 +22,19 @@ For example, one player is given 4 red tokens at the start of the game. He is se
 ###Gameplay
 Steps in a turn:
 
-1. Players discuss, privately or publically.
+1. Players discuss, privately or publicly.
 2. Players write down (or, if digitally, tell the bot) their move. A move consists of giving one token to one other player.
 Written moves can be changed, up until all players have written moves, or a predetermined time limit is reached.
 3. All moves are opened and resolved. 
 4. If one or more players has more than 6 tokens, play goes into rebalencing.
 
 *Note*: A player can't give a token to another player that currently has a token of that color.
-#####Rebalencing
+####Rebalancing
 
-During rebalencing, players discuss as normal. However, only players who have more than 4 tokens write down moves. 
+During rebalancing, players discuss as normal. However, only players who have more than 4 tokens write down moves. 
 
 In addition, these players must write down a number of moves equal to the number of extra tokens they have. For example, a player with 6 tokens would write down 2 moves. These moves must consist of giving to a player with less than 4 tokens, and may not be towards the same player.
 
-#####Winning
+###Winning
 A player wins at any time where his hand contains the tokens specified in his goal.
 
