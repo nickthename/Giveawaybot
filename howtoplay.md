@@ -26,7 +26,7 @@ Steps in a turn:
 2. Players write down (or, if digitally, tell the bot) their move. A move consists of giving one token to one other player.
 Written moves can be changed, up until all players have written moves, or a predetermined time limit is reached.
 3. All moves are opened and resolved. 
-4. If one or more players has more than 6 tokens, play goes into rebalencing.
+4. If one or more players has more than 4 tokens, play goes into rebalencing.
 
 *Note*: A player can't give a token to another player that currently has a token of that color.
 ####Rebalancing
